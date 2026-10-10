@@ -2,34 +2,31 @@ const { emailRegex, passwordRegex } = require("../helpers/regex")
 const authModel = require("../models/authModel")
 const bcrypt = require('bcrypt');
 
-const registerController =async (req,res)=>{
+const registerController = async (req, res) => {
+    try {
+        const { userName, email, password } = req.body
 
-const {userName,email,password}=req.body
+        if (!userName) return res.status(400).send('user name required')
+        if (!email) return res.status(400).send('email required')
+        if (!password) return res.status(400).send('password required')
+        if (!emailRegex.test(email)) return res.status(400).send('email is not valid')
+        if (!passwordRegex.test(password)) return res.status(400).send('password is not valid')
 
+        const existUser = await authModel.findOne({ email })
+        if (existUser) return res.status(409).send('user already exist')
 
-const existUser = await authModel.findOne({email})
+        const hash = await bcrypt.hash(password, 10)
+        const saveAuth = new authModel({
+            userName: userName.trim(),
+            email,
+            password: hash
+        })
 
-    if(!userName) return res.status(401).send('user name required')
-    if(!emailRegex.test(email)) return res.status(401).send('email is not valid')
-    if(!passwordRegex.test(password)) return res.status(404).send('password is not valid')
-    
-    if(existUser) return res.status(401).send('user already exist')
-    // ======send user data to db=====
-    
-    bcrypt.hash(password, 10)
-    .then(function(hash) {
-        const saveAuth= new authModel({
-        userName:userName.trim(),
-         email,
-         password:hash
-    })
-    saveAuth.save()
-
-    
-});
-   
-    res.status(200).send('register success')
+        await saveAuth.save()
+        return res.status(200).send('register success')
+    } catch (error) {
+        return res.status(500).send('server error')
+    }
 }
 
-
-module.exports=registerController
+module.exports = registerController

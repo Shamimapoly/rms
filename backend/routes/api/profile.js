@@ -6,4 +6,5 @@ const profileRoute = express.Router();
 
 profileRoute.get("/", verifyUser, profile);
 profileRoute.get("/details", verifyUser, profileDetails);
+// reoute   ---> verify(middleware function ) --(pass)--> controller function
 module.exports = profileRoute;

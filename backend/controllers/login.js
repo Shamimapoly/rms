@@ -2,28 +2,27 @@ const { emailRegex, passwordRegex } = require("../helpers/regex")
 const authModel = require("../models/authModel")
 const bcrypt = require('bcrypt');
 
-const loginController =async (req,res)=>{
-    const {email, password}=req.body
-    const existUser = await authModel.findOne({email})
+const loginController = async (req, res) => {
+    try {
+        const { email, password } = req.body || {}
 
-    if(!emailRegex.test(email)) return res. status(401).send('email is not valid')
-    if(!passwordRegex.test(password)) return res. status(401).send('password is not valid')
-    if(!existUser) return res.status(401).send('user not foumd')
-    
-    bcrypt.compare(password, existUser.password)
-    .then((result)=> {
-        if(result){
-            res.status(200).send('login success')
-        }else{
-            res.status(401).send('wrong password')
+        if (!email || !password) {
+            return res.status(400).send('email and password required')
         }
-})
+        if (!emailRegex.test(email)) return res.status(400).send('email is not valid')
+        if (!passwordRegex.test(password)) return res.status(400).send('password is not valid')
 
+        const existUser = await authModel.findOne({ email })
+        if (!existUser) return res.status(401).send('user not found')
 
-    
+        const passwordMatches = await bcrypt.compare(password, existUser.password)
+        if (!passwordMatches) return res.status(401).send('wrong password')
 
-    
+        return res.status(200).send('login success')
+    } catch (error) {
+        console.error('Login failed:', error)
+        return res.status(500).send('server error')
+    }
 }
 
-module.exports =loginController
-
+module.exports = loginController

@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 const registerController = async (req, res) => {
     try {
-        const { userName, email, password } = req.body
+        const { userName, email, password } = req.body || {}
 
         if (!userName) return res.status(400).send('user name required')
         if (!email) return res.status(400).send('email required')
@@ -25,6 +25,7 @@ const registerController = async (req, res) => {
         await saveAuth.save()
         return res.status(200).send('register success')
     } catch (error) {
+        console.error('Registration failed:', error)
         return res.status(500).send('server error')
     }
 }

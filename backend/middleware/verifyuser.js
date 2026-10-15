@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken");
+
 const verifyUser = (req, res, next) => {
   const authtoken = req.get("Authorization") || "";
   const [scheme, token] = authtoken.split(" ");
@@ -5,15 +7,15 @@ const verifyUser = (req, res, next) => {
     res.json({ message: "Need Token" });
     return;
   }
-  console.log(token);
-
-  let a = "mytoken";
-  if (a == token) {
-    console.log("Security Check pass");
+  try {
+    const decoded = jwt.verify(token, "aaaa");
+    req.user = decoded;
     return next();
-  } else {
-    console.log("Security Check failed");
-    return res.status(401).send("Unauthorized");
+  } catch (error) {
+    console.error("Token verification failed:", error);
+    return res.status(401).json({ message: "Invalid token" });
   }
+
+  return next();
 };
 module.exports = verifyUser;

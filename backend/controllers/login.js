@@ -1,6 +1,7 @@
 const { emailRegex, passwordRegex } = require("../helpers/regex");
 const authModel = require("../models/authModel");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const loginController = async (req, res) => {
   try {
@@ -20,7 +21,11 @@ const loginController = async (req, res) => {
     const passwordMatches = await bcrypt.compare(password, existUser.password);
     if (!passwordMatches) return res.status(401).send("wrong password");
 
-    let token = "mytoken";
+    let token = jwt.sign(
+      { userId: existUser._id },
+       "aaaa",
+      {expiresIn: "1h",}
+  );
     return res.status(200).json({
       message: "login success",
       token: token,

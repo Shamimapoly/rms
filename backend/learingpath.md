@@ -4,7 +4,7 @@ routes ( get , post , put, delete, patch) --->
 ---> controller (Business Logic)
 ---> model ---> Crud (Create, Read, Update, Delete)
 
-Cloud :
+Cloud (Deploy ):
 --->Bucket : files
 ---> cloud Database (mongodb,mysql,firestore,postgresql)
 ---> lamda function (Backend)

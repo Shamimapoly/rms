@@ -4,7 +4,7 @@ routes ( get , post , put, delete, patch) --->
 ---> controller (Business Logic)
 ---> model ---> Crud (Create, Read, Update, Delete)
 
-Frontend :
+Frontend (Api Intrigration) :
 Api Fetch (Tanstact Query and Axios) --->
 ---> api method : get , post , put, delete, patch
 ---> api payload : frontend data send

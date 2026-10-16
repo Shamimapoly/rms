@@ -2,7 +2,13 @@ const jwt = require("jsonwebtoken");
 
 const verifyUser = (req, res, next) => {
   const authtoken = req.get("Authorization") || "";
-  const [scheme, token] = authtoken.split(" ");
+  //  Bearer aaa
+  console.log("req theke received :", authtoken);
+  const [scheme, token] = authtoken.split(" ");  
+  // Scheme = Bearer, token = aaa
+  console.log("Token Scema kortece :",scheme);
+  console.log("Token Convert kortece :",token);
+
   if (!token) {
     res.json({ message: "Need Token" });
     return;

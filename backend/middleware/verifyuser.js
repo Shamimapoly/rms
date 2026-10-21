@@ -22,6 +22,5 @@ const verifyUser = (req, res, next) => {
     return res.status(401).json({ message: "Invalid token" });
   }
 
-  return next();
 };
 module.exports = verifyUser;

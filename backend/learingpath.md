@@ -6,6 +6,7 @@ routes ( get , post , put, delete, patch) --->
 
 Frontend (Api Intrigration) :
 Api Fetch (Tanstact Query and Axios) --->
+---> axios instence config --->
 ---> api method : get , post , put, delete, patch
 ---> api payload : frontend data send 
 

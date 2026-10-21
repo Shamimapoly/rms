@@ -1,6 +1,6 @@
 Backend :
 routes ( get , post , put, delete, patch) --->
----> middlewares (Security)
+---> middlewares (jwt, Security)
 ---> controller (Business Logic)
 ---> model ---> Crud (Create, Read, Update, Delete)
 

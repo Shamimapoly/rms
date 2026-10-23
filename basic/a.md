@@ -18,7 +18,7 @@ import { useQuery } from "@tanstack/react-query";
      const { data, isLoading, isError, error } = useQuery({
     queryKey: ["profile"],
     queryFn: async () => {
-      const { data } = await api.get("/profile");
+      const { data } = await api.get("/vvv");
       return data;
     },
 

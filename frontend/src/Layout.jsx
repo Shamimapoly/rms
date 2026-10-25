@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 export default function Layout() {
   let user = "akashc";
@@ -10,7 +10,7 @@ export default function Layout() {
 
   return (
     <div>
-      <nav
+      {/* <nav
         style={{
           display: "flex",
           gap: "1rem",
@@ -20,7 +20,7 @@ export default function Layout() {
       >
         <Link to="/">Home</Link>
         <Link to="/about">About</Link>
-      </nav>
+      </nav> */}
       <main style={{ padding: "2rem" }}>
         <Outlet />
       </main>

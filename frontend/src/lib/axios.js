@@ -1,19 +1,26 @@
 import axios from "axios";
 
-const api = axios.create({
-  baseURL: import.meta.env.Vite_Backend_Api,
-  header: { "Content-Type": "application/json" },
-});
+const api = axios.create(
+  // learning
+  {
+    baseURL: import.meta.env.Vite_Backend_Api,
+    header: { "Content-Type": "application/json" },
+  },
+  // learning
+);
 
 //req with token
 
 // Add a request interceptor
 api.interceptors.request.use(
   function (config) {
+    // learning
     const token = localStorage.getItem("token");
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+    // learning
+
     // Do something before the request is sent
     return config;
   },
@@ -31,17 +38,17 @@ api.interceptors.response.use(
     return response;
   },
   function (error) {
+    // learning
     if (error.response?.status === 401) {
       localStorage.removeItem("token");
-      if (window.location.pathname !== "/login"){
+      if (window.location.pathname !== "/login") {
         // without page
-        window.location.assign("/login")
+        window.location.assign("/login");
       }
     }
+    // learning
     // Any status codes that fall outside the range of 2xx cause this function to trigger
     // Do something with response error
     return Promise.reject(error);
   },
 );
-
-

@@ -3,7 +3,7 @@ import axios from "axios";
 const api = axios.create(
   // learning
   {
-    baseURL: import.meta.env.Vite_Backend_Api,
+    baseURL: import.meta.env.VITE_BACKEND_API,
     header: { "Content-Type": "application/json" },
   },
   // learning

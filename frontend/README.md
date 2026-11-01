@@ -1,6 +1,9 @@
 @tanstack/react-query
 
 
+  <!-- setForm((f) => ({ ...f, [e.target.name]: e.target.value })); -->
+
+
   const login = useMutation({
     mutationFn: async ({ email, password }) => {
       const { data } = await api.post("/auth/login", {

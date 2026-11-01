@@ -4,25 +4,30 @@ import api from "../lib/axios";
 
 const Login = () => {
   // state:
-  const [form, setForm] = useState({ email: "", password: "", username: "" });
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    username: "",
+    body: "",
+  });
   let onChange = (e) => {
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
     console.log(form);
   };
 
   const login = useMutation({
-    mutationFn: async ({ email, password, username }) => {
-      const { data } = await api.post("/auth/register", {
-        email: email,
-        password: password,
-        userName: username,
+    mutationFn: async ({ email, password, username, body }) => {
+      const { data } = await api.post("/posts", {
+        title: username,
+        body: body,
+        userId: email,
       });
       return data;
     },
     onSuccess: (data) => {
-      console.log(data);
-      console.log(data.token);
-      localStorage.setItem("token", data.token);
+      console.log("atai amar data ", data);
+      // console.log(data.token);
+      // localStorage.setItem("token", data.token);
     },
     onError: (error) => {
       console.log(error);
@@ -48,6 +53,12 @@ const Login = () => {
         <br />
         <h2>username</h2>
         <input type="text" name="username" onChange={onChange} />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h2>body</h2>
+        <input type="text" name="body" onChange={onChange} />
         <br />
         <br />
         <br />

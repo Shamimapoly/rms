@@ -7,6 +7,7 @@ import SimpleLoging from './pages/SimpleLoging.jsx';
 import SimpleLogout from './pages/SimpleLogout.jsx';
 import SimpleProfile from './pages/SimpleProfile.jsx';
 import Simple from './pages/simple.jsx';
+import Products from './pages/Products.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: 'simplelogin', element: <SimpleLoging /> },
       { path: 'simplelogout', element: <SimpleLogout /> },
       { path: 'simpleprofile', element: <SimpleProfile /> },
+      { path: 'products', element: <Products /> },
     ],
   },
 ])
